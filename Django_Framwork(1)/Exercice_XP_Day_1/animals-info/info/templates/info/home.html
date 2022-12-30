@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <title></title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+   
+        {% for d,s in data.items  %}
+            <h1>{{d}}</h1>
+            <table>
+                {% for a in s %}
+                
+                    {% if a == s.0 %}
+                        <tr>
+                            {% for  y in a.keys  %}
+                                <td>{{y}}</td>
+                            {% endfor %}    
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        {% for z in a.values %}
+                        <td>{{z}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </body>
+</html>
