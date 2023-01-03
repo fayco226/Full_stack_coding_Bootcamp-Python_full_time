@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>SS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <table>
+            
+            {% for a in people %}
+ 
+                 {% if a == people.0 %}
+                     <tr>
+                         {% for b in a.keys  %}
+                             <td> {{b}} </td>
+                         {% endfor %}
+                         
+                     </tr>
+                 {% endif %}
+                 <tr>
+                     {% for c in a.values %}
+                         <td> {{c}} </td>
+                     {% endfor %}
+                 </tr>
+ 
+             {% endfor %}
+      
+         </table>
+    </body>
+</html>             
