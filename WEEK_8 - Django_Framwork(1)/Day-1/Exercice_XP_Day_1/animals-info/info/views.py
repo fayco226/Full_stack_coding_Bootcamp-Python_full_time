@@ -1,3 +1,4 @@
+from copy import deepcopy
 from django.shortcuts import render
 
 # Create your views here.
@@ -213,6 +214,7 @@ data = {
     ]
 }
 
+data1 =  deepcopy(data)
 
 
 def home(request):
@@ -223,26 +225,27 @@ def home(request):
 
 def family(request, x):
     list_family_animal = []
-    for value in data["animals"]:
+    for value in data1["animals"]:
         if value["family"] == x:
             list_family_animal.append(value)
-    for val in data["families"]:
+    for val in data1["families"]:
         if val["id"] == x:
             for va in list_family_animal:
-                va["family"] = val["name"] +" id: "+ str(x)
+                va["family_name"] = val["name"]
     context = {
         "list" : list_family_animal,
     }
     return render(request, "info/family.html", context)
+
 def animals(request, y):
     list_animal = []
-    for value in data["animals"]:
+    for value in data1["animals"]:
         if value["id"]==y:
             list_animal.append(value)
-    for val in data["families"]:
+    for val in data1["families"]:
         if val["id"] == y:
             for va in list_animal:
-                va["family"] = val["name"] +" id: "+ str(y)
+                va["family_name"] = val["name"] 
     context = {"list":list_animal}
     return render(request, "info/animal.html", context)
     

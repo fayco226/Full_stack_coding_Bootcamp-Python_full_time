@@ -32,7 +32,7 @@ people = [
 def home(request):
       
   context = {
-        "people": people,
+        "data": people,
     }
   return render(request, "people/home.html", context)
 
@@ -41,7 +41,7 @@ def by_age(request):
     people1 = sorted(people, key = lambda d: d['age'])
     
     context = {
-      "people":people1
+      "data":people1
     }
     return render(request, "people/by_age.html", context)
 
@@ -51,7 +51,7 @@ def by_id(request, x):
         if i['id'] == x:
           people2.append(i)
     context = {
-      "people":people2
+      "data":people2
     }
     return render(request, "people/by_id.html", context)
     
