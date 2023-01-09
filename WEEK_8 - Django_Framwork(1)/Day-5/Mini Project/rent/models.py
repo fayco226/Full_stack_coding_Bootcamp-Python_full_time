@@ -1,15 +1,16 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class Customer(models.Model):
     first_name = models.CharField( max_length=50)
     last_name = models.CharField( max_length=50)
     email = models.EmailField(max_length=254)
-    phone_number  = models.NumberField()
-    adresse = models.CharField( max_length=50)
+    phone_number  = PhoneNumberField()
+    adress = models.CharField( max_length=50)
     city = models.CharField( max_length=50)
     contry = models.CharField(max_length=50)
-    Charf 
+
    
     def __str__(self):
         return self.first_name
@@ -42,7 +43,7 @@ class Vehicule(models.Model):
     vehicule_type = models.ForeignKey(VehiculeType, related_name=("Type"), on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     real_cost = models.FloatField()
-    taille = models.ForeignKey(VehiculeType, related_name=("Size"), on_delete=models.CASCADE)
+    vehicule_size = models.ForeignKey(VehiculeType, related_name=("Size"), on_delete=models.CASCADE)
     
     def _str_(self):
         return self.vehicule_type
@@ -56,7 +57,7 @@ class Rental(models.Model):
     
     
     class Meta:
-        ordering = ['date_location']
+        ordering = ['rental_date']
     
     
     
