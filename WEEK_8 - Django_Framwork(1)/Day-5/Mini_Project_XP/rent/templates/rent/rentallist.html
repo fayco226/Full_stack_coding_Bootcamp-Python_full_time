@@ -10,16 +10,18 @@
         <tr>
             <th>ID</th>
             <th>NAME</th>
-            <th>Phone Number</th>
+            <th>Rental date</th>
+            <th>Return date</th>
             <th>Action</th>
         </tr>
-        {% for customer in custom_page %}
+        {% for rental in rentals %}
         <tr>
-            <td> {{customer.id}} </td>
-            <td>{{customer.rental_date}} {{customer.last_name}}</td>
-            <td>{{customer.return_date}}</td>
-            <td>{{ customer }}.client}}</td>
-            <td> <a href=" {% url 'delete' customer.id  %} "><button class = "btn btn-danger">Delete</button></a>   <button class = "btn btn-warning">Update</button> </td>
+            <td> {{rental.id}} </td>
+            <td>{{ rental.client}}</td>
+            <td>{{rental.rental_date}} </td>
+            <td>{{rental.return_date}}</td>
+
+            <td> <a href=" {% url 'detailRental' rental.id  %} "><button class = "btn btn-danger">Delete</button></a> </td>
         </tr>
         {% endfor %}
 
