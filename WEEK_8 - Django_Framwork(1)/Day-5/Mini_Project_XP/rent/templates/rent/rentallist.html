@@ -6,6 +6,7 @@
 
 
 {% block content %}
+<a href=" {% url 'addRental' %} "><button class=" btn btn-info">Add Rental</button></a>
     <table class = "table table-striped table-dark table-bordered">
         <tr>
             <th>ID</th>
@@ -27,19 +28,19 @@
 
     
     </table>
-    {% if custom_page.has_previous %}
-        <a href="?page=1">&laquo; first</a>
-        <a href="?page={{ custom_page.previous_page_number }}">previous</a>
-    {% endif %}
+    {% if rentals.has_previous %}
+            <a href="?page=1"> <button class = "btn btn-info" > &laquo; first</button> </a>
+            <a href="?page={{ rentals.previous_page_number }}"><button class = "btn btn-info" > previous</button></a>
+        {% endif %}
 
 
-    Page {{ custom_page.number }} of {{ custom_page.paginator.num_pages }}.
+            Page {{ rentals.number }} of {{ rentals.paginator.num_pages }}.
 
 
-    {% if custom_page.has_next %}
-        <a href="?page={{ custom_page.next_page_number }}">next</a>
-        <a href="?page={{ custom_page.paginator.num_pages }}">last &raquo;</a>
-    {% endif %}
+        {% if rentals.has_next %}
+       <a href="?page={{ rentals.next_page_number }}"><button class = "btn btn-info" > next</button></a>
+       <a href="?page={{ rentals.paginator.num_pages }}"><button class = "btn btn-info" > last &raquo; </button></a>
+        {% endif %}
 
 {% endblock content %}
     

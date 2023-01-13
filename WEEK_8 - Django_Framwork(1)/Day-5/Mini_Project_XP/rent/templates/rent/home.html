@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-       
+
         <title> {% block title %}
             Home
         {% endblock title %}  </title>
@@ -53,9 +53,11 @@
        {%endif%}
     {% if len_costumer != 1 %}
        <a href="{% url 'addCustomer' %}"><button class = "btn btn-success"> Add cusmoter</button></a>
+       <a href="{% url 'rentallist' %}"><button class="btn btn-info">Rental</button></a>
+       <br> <br>
         {% if custom_page.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ custom_page.previous_page_number }}">previous</a>
+            <a href="?page=1"> <button class = "btn btn-info" > &laquo; first</button> </a>
+            <a href="?page={{ custom_page.previous_page_number }}"><button class = "btn btn-info" > previous</button></a>
         {% endif %}
 
         
@@ -63,8 +65,9 @@
         
 
         {% if custom_page.has_next %}
-            <a href="?page={{ custom_page.next_page_number }}">next</a>
-            <a href="?page={{ custom_page.paginator.num_pages }}">last &raquo;</a>
+       <a href="?page={{ custom_page.next_page_number }}"><button class = "btn btn-info" > next</button></a>
+       <a href="?page={{ custom_page.paginator.num_pages }}"><button class = "btn btn-info" > last &raquo; </button></a>
+
         {% endif %}
    
     {% endif %}
