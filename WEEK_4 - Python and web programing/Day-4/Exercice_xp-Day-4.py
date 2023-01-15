@@ -55,15 +55,15 @@ from random import randint
 
 
 def get_random_temp(season):
-    if season == "hiver":
+    if season == "winter":
         value = random.randint(0, 16)
-    elif season == "automne":
+    elif season == "fall":
         value = random.randint(16, 23)
 
-    elif season == "printemps":
+    elif season == "spring":
         value = random.randint(24, 32)
 
-    elif season == "ete":
+    elif season == "summer":
         value = random.randint(32, 40)
     else:
         value = random.randint(-10, 0)
