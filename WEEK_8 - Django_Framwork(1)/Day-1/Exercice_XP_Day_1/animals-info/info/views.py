@@ -214,7 +214,7 @@ data = {
     ]
 }
 
-data1 =  deepcopy(data)
+data1 = deepcopy(data)
 
 
 def home(request):

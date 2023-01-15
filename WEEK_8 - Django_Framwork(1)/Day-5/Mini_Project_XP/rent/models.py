@@ -36,7 +36,7 @@ class Vehicule(models.Model):
     vehicule_type = models.ForeignKey(VehiculeType, related_name="Type", on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     real_cost = models.FloatField()
-    vehicule_size = models.ForeignKey(VehiculeType, related_name="Size", on_delete=models.CASCADE)
+    vehicule_size = models.ForeignKey(VehiculeSize, related_name="Size", on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.vehicule_type)
@@ -45,11 +45,11 @@ class Vehicule(models.Model):
 class Rental(models.Model):
     rental_date = models.DateTimeField(auto_now_add=True)
     return_date = models.DateTimeField()
-    client = models.ForeignKey(Customer, related_name="customer", on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, related_name="customer", on_delete=models.CASCADE)
     vehicule = models.ForeignKey(Vehicule, related_name="vehicule", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.client)
+        return str(self.vehicule)
 
     class Meta:
         ordering = ['rental_date']

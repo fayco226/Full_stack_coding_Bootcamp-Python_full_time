@@ -18,55 +18,54 @@
                     <th>ID</th>
                     <th>NAME</th>
                     <th>Phone Number</th>
-                    {% if len_costumer == 1 %}
+                    {% if len == 1 %}
                         <th>Adress</th>
                         <th>Email</th>
                         <th>Country</th>
                         <th>City</th>
                     {% endif %}
-                    {% if len_costumer != 1 %}
+                    {% if len != 1 %}
                         <th>Action</th>
                     {%endif%}
                 </tr>
-                {% for customer in custom_page %}
+                {% for model in models %}
                 <tr>
-                    <td> {{customer.id}} </td>
-                    <td>{{customer.first_name}} {{customer.last_name}}</td>
-                    <td>{{customer.phone_number}}</td>
-                    {% if len_costumer == 1 %}
-                        <td> {{customer.address}} </td>
-                        <td> {{customer.email}} </td>
-                        <td> {{customer.country}} </td>
-                        <td> {{customer.city}} </td>
+                    <td> {{model.id}} </td>
+                    <td>{{model.first_name}} {{model.last_name}}</td>
+                    <td>{{model.phone_number}}</td>
+                    {% if len == 1 %}
+                        <td> {{model.address}} </td>
+                        <td> {{model.email}} </td>
+                        <td> {{model.country}} </td>
+                    
+                        <td> {{model.city}} </td>
                     {%endif%}
-                    {% if len_costumer != 1 %}
-                        <td> <a href=" {% url 'detailCustomer' customer.id  %} "><button class = "btn btn-warning">Detail</button></a>   </td>
+                    {% if len != 1 %}
+                        <td> <a href=" {% url 'detailCustomer' model.id  %} "><button class = "btn btn-warning">Detail</button></a>   </td>
                     {%endif%}
 
                  </tr>
                 {% endfor %}
-
-
             </table>
-       {% if len_costumer == 1 %}
+       {% if len == 1 %}
                         <a href="{% url 'home' %}"><button class = "btn btn-success">Retour</button></a>
        {%endif%}
-    {% if len_costumer != 1 %}
+    {% if len != 1 %}
        <a href="{% url 'addCustomer' %}"><button class = "btn btn-success"> Add cusmoter</button></a>
        <a href="{% url 'rentallist' %}"><button class="btn btn-info">Rental</button></a>
        <br> <br>
-        {% if custom_page.has_previous %}
+        {% if models.has_previous %}
             <a href="?page=1"> <button class = "btn btn-info" > &laquo; first</button> </a>
-            <a href="?page={{ custom_page.previous_page_number }}"><button class = "btn btn-info" > previous</button></a>
+            <a href="?page={{ models.previous_page_number }}"><button class = "btn btn-info" > previous</button></a>
         {% endif %}
 
         
-            Page {{ custom_page.number }} of {{ custom_page.paginator.num_pages }}.
+            Page {{ models.number }} of {{ models.paginator.num_pages }}.
         
 
-        {% if custom_page.has_next %}
-       <a href="?page={{ custom_page.next_page_number }}"><button class = "btn btn-info" > next</button></a>
-       <a href="?page={{ custom_page.paginator.num_pages }}"><button class = "btn btn-info" > last &raquo; </button></a>
+        {% if models.has_next %}
+       <a href="?page={{ models.next_page_number }}"><button class = "btn btn-info" > next</button></a>
+       <a href="?page={{ models.paginator.num_pages }}"><button class = "btn btn-info" > last &raquo; </button></a>
 
         {% endif %}
    

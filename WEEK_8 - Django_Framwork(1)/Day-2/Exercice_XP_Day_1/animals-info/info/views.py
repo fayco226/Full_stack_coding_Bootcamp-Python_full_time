@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from info.models import Animal, Family
+from .models import Animal, Family
 # Create your views here.
 
 

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .forms import CustomerForm, RentalForm
 # from faker import Faker
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .models import Customer, Vehicule, VehiculeSize, VehiculeType, Rental, RentalRate
+from .models import Customer, Vehicule, Rental
 
 from faker import Faker
 
@@ -22,16 +23,56 @@ def customer_fill_by_faker():
 
 
 # Create your views here.
-def rentallist(request, id=0):
-    if id != 0:
-        rental = Rental.objects.get(id=id).delete()
-        return redirect("rentallist")
-    else:
-        rental = Rental.objects.all().order_by('rental_date')
-        page = Paginator(rental, 5)
+
+def vehiculelist(request, id=0):
+    if id == 0:
+        vehicule = Vehicule.objects.all()
+        page = Paginator(vehicule, 4)
         pge = request.GET.get('page')
         cust = page.get_page(pge)
-        return render(request, 'rent/rentallist.html', {'rentals': cust})
+        var = 0
+        return render(request, 'rent/vehiculelist.html', {'models': cust, 'len': var})
+    else:
+        vehicule = Vehicule.objects.filter(id=id)
+        var = 1
+        return render(request, 'rent/vehiculelist.html', {'models': vehicule, 'len': var})
+
+
+def addVehicule(request):
+    if request.method == "POST":
+        form = CustomerForm(request.POST)
+        vehicule = Vehicule.objects.all()
+        page = Paginator(vehicule, 4)
+        pge = request.GET.get('page')
+        cust = page.get_page(pge)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Vehicule added !")
+            return redirect('home')
+        else:
+            return render(request, 'rent/addVehicule.html', {"form": form, 'models': cust})
+    else:
+        form = CustomerForm()
+        customer = Customer.objects.all()
+        page = Paginator(customer, 5)
+        pge = request.GET.get('page')
+        cust = page.get_page(pge)
+
+        return render(request, 'rent/addVehicule.html', {"form": form, 'models': cust})
+
+
+def rentallist(request, id=0):
+    if id == 0:
+        rental = Rental.objects.all()
+        page = Paginator(rental, 4)
+        pge = request.GET.get('page')
+        cust = page.get_page(pge)
+        var = 0
+        return render(request, 'rent/rentallist.html', {'models': cust, 'len': var})
+    else:
+        rental = Rental.objects.filter(id=id)
+        var = 1
+        return render(request, 'rent/rentallist.html', {'models': rental, 'len': var})
 
 
 def addRental(request):
@@ -42,37 +83,45 @@ def addRental(request):
         pge = request.GET.get('page')
         cust = page.get_page(pge)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Customer added !")
-            return redirect('rentallist')
+            z = 0
+            cc = form.cleaned_data["vehicule"]
+            for i in rental:
+                if i.vehicule == cc:
+                    z += 1
+            if z == 0:
+                form.save()
+                messages.success(request, "Rental added !")
+                return redirect('rentallist')
+            else:
+                return HttpResponse("vehicle already take")
         else:
-            return render(request, 'rent/addRental.html', {"form": form, 'custom_page': cust})
+            return render(request, 'rent/addRental.html', {"form": form, 'models': cust})
     else:
         form = RentalForm()
-        rental = Customer.objects.all()
+        rental = Rental.objects.all()
         page = Paginator(rental, 5)
         pge = request.GET.get('page')
         cust = page.get_page(pge)
 
-        return render(request, 'rent/addRental.html', {"form": form, 'custom_page': cust})
+        return render(request, 'rent/addRental.html', {"form": form, 'models': cust})
 
 
 def home0(request):
-    return redirect("home")
+    return render(request, 'rent/home0.html')
 
 
 def home(request, id=0):
-    if id != 0:
-        customer = Customer.objects.filter(id=id)
-        var = len(customer)
-        return render(request, 'rent/home.html', {'custom_page': customer, 'len_costumer': var})
-    else:
+    if id == 0:
         customer = Customer.objects.all()
         page = Paginator(customer, 5)
         pge = request.GET.get('page')
         cust = page.get_page(pge)
         var = len(customer)
-        return render(request, 'rent/home.html', {'custom_page': cust, 'len_customer': var})
+        return render(request, 'rent/home.html', {'models': cust, 'len': var})
+    else:
+        customer = Customer.objects.filter(id=id)
+        var = len(customer)
+        return render(request, 'rent/home.html', {'models': customer, 'len': var})
 
 
 def addCustomer(request):
@@ -87,7 +136,7 @@ def addCustomer(request):
             messages.success(request, "Customer added !")
             return redirect('home')
         else:
-            return render(request, 'rent/addCustomer.html', {"form": form, 'custom_page': cust})
+            return render(request, 'rent/addCustomer.html', {"form": form, 'models': cust})
     else:
         form = CustomerForm()
         customer = Customer.objects.all()
@@ -95,4 +144,4 @@ def addCustomer(request):
         pge = request.GET.get('page')
         cust = page.get_page(pge)
 
-        return render(request, 'rent/addCustomer.html', {"form": form, 'custom_page': cust})
+        return render(request, 'rent/addCustomer.html', {"form": form, 'models': cust})

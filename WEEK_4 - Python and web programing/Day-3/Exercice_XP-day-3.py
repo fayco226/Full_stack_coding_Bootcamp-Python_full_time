@@ -97,6 +97,7 @@ print(brand["number_stores"])  # number of store is update to 10 000
 #####################################
 #      Exercice4                    #
 #####################################
+
 users = ["Mickey","Minnie","Donald","Ariel","Pluto"]
 
 disney_users_A = {users[i]: i for i in range(len(users))}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from person.models import Person
-from person.forms import PersonForm
+from .models import Person
+from .forms import PersonForm
 from django.contrib import messages
 from django.http import HttpResponse
 # Create your views here.
