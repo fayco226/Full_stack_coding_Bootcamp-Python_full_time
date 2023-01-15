@@ -28,7 +28,7 @@
         <td>{{model.vehicule}}</td>
         {% if len == 1 %}
             <td> {{model.rental_date}} </td>
-            <td> {{model.return_date}} </td>
+            <td> {{model.return_date}}/not return </td>
         {%endif%}
         {% if len != 1 %}
             <td> <a href=" {% url 'detailRental' model.id  %} "><button class = "btn btn-warning">Detail</button></a>   </td>
@@ -40,6 +40,7 @@
 {% if len == 1 %}
             <a href="{% url 'rentallist' %}"><button class = "btn btn-success">Retour</button></a>
 {%endif%}
+<a href="{% url 'home0' %}"><button class="btn btn-info">HOME</button></a>
 {% if len != 1 %}
 <a href="{% url 'addRental' %}"><button class = "btn btn-success"> Add Rental</button></a>
 <br> <br>

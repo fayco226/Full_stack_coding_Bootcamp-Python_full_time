@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import CustomerForm, RentalForm
-# from faker import Faker
+from .forms import CustomerForm, RentalForm, VehiculeForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import Customer, Vehicule, Rental
@@ -34,13 +33,20 @@ def vehiculelist(request, id=0):
         return render(request, 'rent/vehiculelist.html', {'models': cust, 'len': var})
     else:
         vehicule = Vehicule.objects.filter(id=id)
+        rent = Rental.objects.filter(vehicule_id=id)
+        if len(rent) != 0:
+            v = 1
+        else:
+            v = 0
         var = 1
-        return render(request, 'rent/vehiculelist.html', {'models': vehicule, 'len': var})
+        return render(request, 'rent/vehiculelist.html', {'models': vehicule, 'len': var, 'av': v})
 
-
+def returnVehicule(request, id):
+    Rental.objects.get(vehicule_id=id).delete()
+    return redirect('vehiculelist')
 def addVehicule(request):
     if request.method == "POST":
-        form = CustomerForm(request.POST)
+        form = VehiculeForm(request.POST)
         vehicule = Vehicule.objects.all()
         page = Paginator(vehicule, 4)
         pge = request.GET.get('page')
@@ -48,13 +54,13 @@ def addVehicule(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Vehicule added !")
-            return redirect('home')
+            return redirect('vehiculelist')
         else:
             return render(request, 'rent/addVehicule.html', {"form": form, 'models': cust})
     else:
-        form = CustomerForm()
-        customer = Customer.objects.all()
-        page = Paginator(customer, 5)
+        form = VehiculeForm()
+        vehicule = Customer.objects.all()
+        page = Paginator(vehicule, 5)
         pge = request.GET.get('page')
         cust = page.get_page(pge)
 
