@@ -13,8 +13,8 @@ favorite_book("40 RULES OF LOVE (D’ELIF ŞAFAK)")
 
 # Exercice 3
 
-def describe_city(ville, pays):
-  print(f"{ville} is in {pays}")
+def describe_city(city, country):
+  print(f"{city} is in {country}")
 describe_city("Ouagadougou", "BURKINA FASO")
 
 # Exercice 4
@@ -22,21 +22,17 @@ describe_city("Ouagadougou", "BURKINA FASO")
 
 import random
 from random import randint
-def randomNumber(a):
-  randomNumb = random.randint(1, 100)
-  if a == randomNumb:
-    print(f" Success!!! \n number {a} and the random number {randomNumb}")
+def randomNumber(z):
+  Numb = random.randint(1, 100)
+  if z == Numb:
+    print(f" Success!!! \n number {z} and the random number {Numb}")
   else:
-    print("")
-    print(f" failure... The user number is {a} and the random number is {randomNumb}")
+    print(f" failure... The user number is {z} and the random number is {Numb}")
 randomNumber(99)
 
 # Exercice 5
 
-
-
-
-def make_shirt(size=100, text="J'aime Python"):
+def make_shirt(size=150, text="I like Python"):
   print(f"The size of the shirt is {size} and the text is {text}")
 make_shirt()
 
@@ -58,41 +54,41 @@ import random
 from random import randint
 
 
-def get_random_temp(saison):
-    if saison == "hiver":
-        tmpvalue = random.randint(0, 16)
-    elif saison == "automne":
-        tmpvalue = random.randint(16, 23)
+def get_random_temp(season):
+    if season == "hiver":
+        value = random.randint(0, 16)
+    elif season == "automne":
+        value = random.randint(16, 23)
 
-    elif saison == "printemps":
-        tmpvalue = random.randint(24, 32)
+    elif season == "printemps":
+        value = random.randint(24, 32)
 
-    elif saison == "ete":
-        tmpvalue = random.randint(32, 40)
+    elif season == "ete":
+        value = random.randint(32, 40)
     else:
-        tmpvalue = random.randint(-10, 0)
-    return tmpvalue
+        value = random.randint(-10, 0)
+    return value
 
 
 def main():
 
-    saison = input("Veiller saisir votre saison actuelle : ")
-    if saison == saison:
+    season = input("Please enter your current season: ")
+    if season == season:
 
-        randtmp = get_random_temp(saison)
-        print(f"la temperature actuelle est de {randtmp} dégré celsus nous en {saison}")
+        randtmp = get_random_temp(season)
+        print(f"the current temperature is {randtmp} degree celsus and us in{season}")
         if randtmp < 0:
-            print("Brrr, c'est glacial ! Portez des couches supplémentaires aujourd'hui")
+            print("Brrr, it's freezing! Wear extra layers today")
         elif randtmp >0 and randtmp < 16:
-            print("Assez froid ! N'oubliez pas votre manteau")
+            print("Quite cold ! Don't forget your coat")
         elif randtmp >=16 and randtmp <= 23:
-            print("Un peut frais cas même mais beau temps")
+            print("A bit cool even if the weather is nice")
         elif randtmp >=24 and randtmp < 32:
-            print("Tres beau temps")
+            print("Very good weather")
         elif randtmp >=32 and randtmp < 40:
-            print("Quel challeur ! il fau la clim!!!")
+            print("It's hot")
         else:
-            print("Mauvais temps trop de chaleur")
+            print("Bad weather too hot")
     else:
-        print("aucune saison")
+        print("no season")
 main()
